@@ -16,23 +16,29 @@
 /**
  * External dependencies
  */
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'styled-components';
 
 /**
  * Internal dependencies
  */
 import Popup from '../popup';
-import { AnimationPopover } from './popover';
+import { ANIMATION_TYPE_POPOVER_WIDTH, AnimationPopover } from './popover';
 import { TimelineRowAnimationType, ArrowDownIcon } from './components';
 
 export function AnimationTypeButton({ animation }) {
   const ref = useRef();
   const [isOpen, setIsOpen] = useState(false);
 
-  const togglePopover = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+  const togglePopover = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+  const popupStyle = useMemo(
+    () => css`
+      z-index: 3;
+      left: -${() => (ANIMATION_TYPE_POPOVER_WIDTH - (ref.current?.offsetWidth || 0)) / 2}px;
+    `,
+    []
+  );
 
   return (
     <>
@@ -45,7 +51,7 @@ export function AnimationTypeButton({ animation }) {
         isOpen={isOpen}
         placement="top"
         fillWidth
-        zIndex={3}
+        customStyle={popupStyle}
         renderContents={() => (
           <AnimationPopover togglePopover={togglePopover} />
         )}

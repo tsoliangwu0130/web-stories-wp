@@ -63,7 +63,7 @@ const Container = styled.div.attrs(
   left: 0px;
   top: 0px;
   position: fixed;
-  z-index: ${({ zIndex }) => zIndex};
+  z-index: 2;
 
   /*
    * Custom gray scrollbars for Chromium & Firefox.
@@ -90,6 +90,8 @@ const Container = styled.div.attrs(
     border-top-width: 3px;
     border-radius: 6px;
   }
+
+  ${({ customStyle }) => customStyle};
 `;
 
 function Popup({
@@ -102,7 +104,7 @@ function Popup({
   isOpen,
   fillWidth = false,
   fillHeight = false,
-  zIndex = 2,
+  customStyle = {},
   onPositionUpdate = () => {},
 }) {
   const [popupState, setPopupState] = useState(null);
@@ -151,7 +153,7 @@ function Popup({
           fillWidth={fillWidth}
           fillHeight={fillHeight}
           placement={placement}
-          zIndex={zIndex}
+          customStyle={customStyle}
         >
           {renderContents
             ? renderContents({ propagateDimensionChange: positionPopup })

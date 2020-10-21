@@ -32,8 +32,10 @@ import { rgba } from 'polished';
  */
 import useFocusOut from '../../utils/useFocusOut';
 
+export const ANIMATION_TYPE_POPOVER_WIDTH = 276;
+
 const PopoverContainer = styled.div`
-  width: 276px;
+  width: ${ANIMATION_TYPE_POPOVER_WIDTH}px;
   padding: 16px;
   background-color: ${({ theme }) => theme.colors.bg.v17};
   border-radius: 8px;
@@ -46,7 +48,7 @@ const baseEffectButtonStyles = css`
   border: none;
   padding: 8px;
   border-radius: 4px;
-  font-family: Google Sans;
+  font-family: Google Sans, sans-serif;
   margin-bottom: 8px;
 
   &:last-child {
