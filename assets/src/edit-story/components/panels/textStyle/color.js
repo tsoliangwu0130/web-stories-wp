@@ -19,7 +19,7 @@
  */
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 /**
  * WordPress dependencies
@@ -33,9 +33,15 @@ import { BACKGROUND_TEXT_MODE } from '../../../constants';
 import { FillNone, FillFilled, FillHighlighted } from '../../../icons/';
 import { Color, Label, Row, ToggleButton } from '../../form';
 import { useKeyDownEffect } from '../../keyboard';
-import { useCommonColorValue, getCommonValue } from '../utils';
+import {
+  useCommonColorValue,
+  getCommonValue,
+  useCommonObjectValue,
+} from '../utils';
 import getColorPickerActions from '../utils/getColorPickerActions';
+import { metricsForNewPadding } from '../utils/metricsForNewPadding';
 import useRichTextFormatting from './useRichTextFormatting';
+import { DEFAULT_PADDING } from './padding';
 
 const FillRow = styled(Row)`
   align-items: flex-start;
@@ -58,6 +64,17 @@ const FillToggleButton = styled(ToggleButton)`
 const Space = styled.div`
   flex: ${({ flex }) => flex};
 `;
+
+const DEFAULT_PADDING_FOR_MODE = {
+  [BACKGROUND_TEXT_MODE.FILL]: {
+    vertical: 6,
+    horizontal: 6,
+  },
+  [BACKGROUND_TEXT_MODE.HIGHLIGHT]: {
+    vertical: 10,
+    horizontal: 4,
+  },
+};
 
 const BUTTONS = [
   {
@@ -109,6 +126,46 @@ function ColorControls({ selectedElements, pushUpdate }) {
     [backgroundTextMode, pushUpdate]
   );
 
+  const padding = useCommonObjectValue(
+    selectedElements,
+    'padding',
+    DEFAULT_PADDING
+  );
+
+  const handleBackgroundModeButton = useCallback(
+    (value, mode) => {
+      if (!value) {
+        return;
+      }
+
+      pushUpdate(({ x, y, width, height }) => {
+        let updates = { backgroundTextMode: mode };
+        if (
+          mode === BACKGROUND_TEXT_MODE.FILL ||
+          mode === BACKGROUND_TEXT_MODE.HIGHLIGHT
+        ) {
+          const newPadding = DEFAULT_PADDING_FOR_MODE[mode];
+          const { horizontal, vertical, ...rest } = metricsForNewPadding({
+            x,
+            y,
+            height,
+            width,
+            currentPadding: padding,
+            newPadding,
+          });
+          updates = {
+            ...updates,
+            ...rest,
+            padding: newPadding,
+          };
+        }
+
+        return updates;
+      }, true);
+    },
+    [padding, pushUpdate]
+  );
+
   return (
     <>
       <Row>
@@ -135,15 +192,7 @@ function ColorControls({ selectedElements, pushUpdate }) {
               __('Set text background mode: %s', 'web-stories'),
               label
             )}
-            onChange={(value) =>
-              value &&
-              pushUpdate(
-                {
-                  backgroundTextMode: mode,
-                },
-                true
-              )
-            }
+            onChange={(value) => handleBackgroundModeButton(value, mode)}
           />
         ))}
         <Space flex="2" />
