@@ -32,7 +32,7 @@ export const TextInput = styled.input`
   border-radius: 6px;
   border: ${({ theme, error }) =>
     error ? theme.borders.danger : theme.borders.gray100};
-  &:active {
+  &:active:enabled {
     border: ${({ theme, error }) =>
       error ? theme.borders.danger : theme.borders.action};
   }
