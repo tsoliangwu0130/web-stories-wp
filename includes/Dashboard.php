@@ -235,8 +235,6 @@ class Dashboard {
 	 * @return boolean 
 	 */
 	public function is_site_kit_plugin_installed() {
-
-		// Get all plugins
 		$all_plugins = get_plugins();
 
 		return array_key_exists( 'google-site-kit/google-site-kit.php', $all_plugins );
