@@ -46,7 +46,7 @@ import {
 
 export const TEXT = {
   CONTEXT: __(
-    "The story editor will append a default, configurable AMP analytics configuration to your story. If you're interested in going beyond what the default configuration is, read this article on<a>analytics for your Web Stories</a>.",
+    "The story editor will append a default, configurable AMP analytics configuration to your story. If you're interested in going beyond what the default configuration is, read this article on <a>analytics for your Web Stories</a>.",
     'web-stories'
   ),
   CONTEXT_LINK:
@@ -57,25 +57,27 @@ export const TEXT = {
   INPUT_ERROR: __('Invalid ID format', 'web-stories'),
   SUBMIT_BUTTON: __('Save', 'web-stories'),
   SITE_KIT_NOT_INSTALLED: __(
-    'Install<a>Site Kit by Google</a> to easily enable Google Analytics for Web Stories.',
+    'Install <a>Site Kit by Google</a> to easily enable Google Analytics for Web Stories.',
     'web-stories'
   ),
   SITE_KIT_INSTALLED: __(
-    'Use Site Kit by Google to easily<a>activate Google Analytics</a> for Web Stories.',
+    'Activate <a>Site Kit by Google</a> to easily enable Google Analytics for Web Stories.',
+    'web-stories'
+  ),
+  SITE_KIT_ACTIVE: __(
+    'Use Site Kit by Google to easily <a>activate Google Analytics</a> for Web Stories.',
     'web-stories'
   ),
   SITE_KIT_IN_USE: __(
     'Site Kit by Google has already enabled Google Analytics for your Web Stories, all changes to your analytics tracking should occur there.',
     'web-stories'
   ),
-  SITE_KIT_ADMIN_PLUGIN_LINK: 'https://wordpress.org/plugins/google-site-kit/', // TODO get a direct link to WP admin (it's a modal)
-  SITE_KIT_PLUGIN_LINK: 'https://wordpress.org/plugins/google-site-kit/',
 };
 
 function GoogleAnalyticsSettings({
   googleAnalyticsId,
   handleUpdate,
-  siteKitCapabilities = {},
+  siteKitStatus = {},
 }) {
   const [analyticsId, setAnalyticsId] = useState(googleAnalyticsId);
   const [inputError, setInputError] = useState('');
@@ -83,10 +85,11 @@ function GoogleAnalyticsSettings({
   const disableSaveButton = !canSave;
 
   const {
-    canInstallPlugins,
-    siteKitActive,
-    siteKitInstalled,
-  } = siteKitCapabilities;
+    installed: siteKitInstalled,
+    active: siteKitActive,
+    analyticsActive: siteKitAnalyticsActive,
+    link: siteKitLink,
+  } = siteKitStatus;
 
   useEffect(() => {
     setAnalyticsId(googleAnalyticsId);
@@ -122,12 +125,20 @@ function GoogleAnalyticsSettings({
   );
 
   const siteKitDisplayText = useMemo(() => {
-    const siteKitLink = canInstallPlugins
-      ? TEXT.SITE_KIT_ADMIN_PLUGIN_LINK
-      : TEXT.SITE_KIT_PLUGIN_LINK;
+    if (siteKitAnalyticsActive) {
+      return TEXT.SITE_KIT_IN_USE;
+    }
 
     if (siteKitActive) {
-      return TEXT.SITE_KIT_IN_USE;
+      return (
+        <TranslateWithMarkup
+          mapping={{
+            a: <InlineLink href={siteKitLink} />,
+          }}
+        >
+          {TEXT.SITE_KIT_ACTIVE}
+        </TranslateWithMarkup>
+      );
     }
 
     if (siteKitInstalled) {
@@ -141,6 +152,7 @@ function GoogleAnalyticsSettings({
         </TranslateWithMarkup>
       );
     }
+
     return (
       <TranslateWithMarkup
         mapping={{
@@ -150,7 +162,7 @@ function GoogleAnalyticsSettings({
         {TEXT.SITE_KIT_NOT_INSTALLED}
       </TranslateWithMarkup>
     );
-  }, [canInstallPlugins, siteKitActive, siteKitInstalled]);
+  }, [siteKitActive, siteKitInstalled, siteKitLink]);
 
   return (
     <SettingForm onSubmit={(e) => e.preventDefault()}>
@@ -196,12 +208,11 @@ function GoogleAnalyticsSettings({
 GoogleAnalyticsSettings.propTypes = {
   handleUpdate: PropTypes.func,
   googleAnalyticsId: PropTypes.string,
-  siteKitCapabilities: PropTypes.shape({
-    analyticsModuleActive: PropTypes.bool,
-    canActivatePlugins: PropTypes.bool,
-    canInstallPlugins: PropTypes.bool,
-    siteKitActive: PropTypes.bool,
-    siteKitInstalled: PropTypes.bool,
+  siteKitStatus: PropTypes.shape({
+    installed: PropTypes.bool,
+    active: PropTypes.bool,
+    analyticsActive: PropTypes.bool,
+    link: PropTypes.string,
   }),
 };
 

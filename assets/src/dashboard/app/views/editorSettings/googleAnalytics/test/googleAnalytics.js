@@ -27,12 +27,10 @@ import GoogleAnalyticsSettings, { TEXT } from '../';
 describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
   let googleAnalyticsId;
   let mockUpdate;
-  const defaultSiteKitCapabilities = {
-    analyticsModuleActive: false,
-    canActivatePlugins: true,
-    canInstallPlugins: true,
-    siteKitActive: false,
-    siteKitInstalled: false,
+  const defaultSiteKitStatus = {
+    installed: false,
+    active: false,
+    analyticsActive: false,
   };
 
   beforeEach(() => {
@@ -51,7 +49,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -68,7 +66,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -81,10 +79,10 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{
-          ...defaultSiteKitCapabilities,
-          siteKitActive: true,
-          siteKitInstalled: true,
+        siteKitStatus={{
+          ...defaultSiteKitStatus,
+          active: true,
+          installed: true,
         }}
       />
     );
@@ -98,10 +96,10 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{
-          ...defaultSiteKitCapabilities,
-          siteKitActive: false,
-          siteKitInstalled: true,
+        siteKitStatus={{
+          ...defaultSiteKitStatus,
+          active: false,
+          installed: true,
         }}
       />
     );
@@ -115,7 +113,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -129,7 +127,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -143,7 +141,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -161,7 +159,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -177,7 +175,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
@@ -192,7 +190,7 @@ describe('Editor Settings: Google Analytics <GoogleAnalytics />', function () {
       <GoogleAnalyticsSettings
         googleAnalyticsId={googleAnalyticsId}
         handleUpdate={mockUpdate}
-        siteKitCapabilities={{ ...defaultSiteKitCapabilities }}
+        siteKitStatus={{ ...defaultSiteKitStatus }}
       />
     );
 
