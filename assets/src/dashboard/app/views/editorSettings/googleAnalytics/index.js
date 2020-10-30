@@ -162,7 +162,7 @@ function GoogleAnalyticsSettings({
         {TEXT.SITE_KIT_NOT_INSTALLED}
       </TranslateWithMarkup>
     );
-  }, [siteKitActive, siteKitInstalled, siteKitLink]);
+  }, [siteKitInstalled, siteKitActive, siteKitAnalyticsActive, siteKitLink]);
 
   return (
     <SettingForm onSubmit={(e) => e.preventDefault()}>
