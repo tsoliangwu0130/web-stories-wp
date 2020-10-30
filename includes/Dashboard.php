@@ -340,14 +340,12 @@ class Dashboard {
 					'canUploadFiles'    => current_user_can( 'upload_files' ),
 				],
 				'siteKitStatus'      => [
-					'installed'         => array_key_exists( 'google-site-kit/google-site-kit.php', get_plugins() ),
-					'active'            => defined( 'GOOGLESITEKIT_VERSION' ),
+					'installed'       => array_key_exists( 'google-site-kit/google-site-kit.php', get_plugins() ),
+					'active'          => defined( 'GOOGLESITEKIT_VERSION' ),
 					// TODO: Implement in #5051.
-					'analyticsActive'   => false,
-					'canInstallPlugin'  => current_user_can( 'install_plugins' ),
-					'canActivatePlugin' => current_user_can( 'activate_plugin', 'google-site-kit/google-site-kit.php' ),
+					'analyticsActive' => false,
 					// TODO: Make dynamic in #5051.
-					'link'              => __( 'https://wordpress.org/plugins/google-site-kit/', 'web-stories' ),
+					'link'            => __( 'https://wordpress.org/plugins/google-site-kit/', 'web-stories' ),
 				],
 			],
 			'flags'      => array_merge(
