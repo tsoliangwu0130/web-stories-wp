@@ -85,6 +85,9 @@ export const dark = {
     divider: standard.white,
     overlay: '#1E1F1F',
   },
+  border: {
+    primary: standard.white,
+  },
 };
 
 export const light = {
@@ -106,5 +109,8 @@ export const light = {
     panel: '#F7F8F7',
     divider: '#1B1D1C',
     overlay: '#1E1F1F',
+  },
+  border: {
+    primary: standard.black,
   },
 };
