@@ -25,7 +25,8 @@ import { text } from '@storybook/addon-knobs';
  * Internal dependencies
  */
 import { THEME_CONSTANTS } from '../../../';
-import { Button, BUTTON_TYPES, Text } from '../../';
+import { Button, BUTTON_TYPES } from '../../button';
+import { Text } from '../../typography';
 import { Dialog } from '..';
 
 export default {
@@ -65,7 +66,7 @@ export const _default = () => {
         contentLabel={'Dialog content Label for modal'}
         actions={ActionsNode}
       >
-        <Text size={THEME_CONSTANTS.TYPOGRAPHY_PRESET_SIZES.SMALL}>
+        <Text size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.SMALL}>
           {text(
             'body text',
             'Duka din veranda till fest, för en långväga gäst, i landet lagom är bäst.'
@@ -118,7 +119,7 @@ export const With2Actions = () => {
         contentLabel={'Dialog content Label for modal'}
         actions={ActionsNode}
       >
-        <Text size={THEME_CONSTANTS.TYPOGRAPHY_PRESET_SIZES.SMALL}>
+        <Text size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.SMALL}>
           {text(
             'body text',
             'Duka din veranda till fest, för en långväga gäst, i landet lagom är bäst.'
