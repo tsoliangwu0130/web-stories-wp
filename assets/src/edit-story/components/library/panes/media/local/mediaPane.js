@@ -18,7 +18,7 @@
  * External dependencies
  */
 import { useFeature } from 'flagged';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 /**
@@ -55,6 +55,7 @@ import { DropDown } from '../../../../form';
 import { Placement } from '../../../../popup';
 import { PANE_PADDING } from '../../shared';
 import paneId from './paneId';
+import RestrictAccessDialog from './restrictAccessDialog';
 
 export const ROOT_MARGIN = 300;
 
@@ -121,6 +122,10 @@ function MediaPane(props) {
     insertElement: state.actions.insertElement,
   }));
 
+  const [showRestrictAccessDialog, setShowRestrictAcccessDialog] = useState(
+    false
+  );
+
   const onClose = resetWithFetch;
 
   /**
@@ -140,6 +145,7 @@ function MediaPane(props) {
   const openMediaPicker = useMediaPicker({
     onSelect,
     onClose,
+    onRestrictAccess: () => setShowRestrictAcccessDialog(true),
   });
 
   /**
@@ -245,6 +251,11 @@ function MediaPane(props) {
             searchTerm={searchTerm}
           />
         )}
+
+        <RestrictAccessDialog
+          open={showRestrictAccessDialog}
+          onClose={() => setShowRestrictAcccessDialog(false)}
+        />
       </PaneInner>
     </StyledPane>
   );
