@@ -23,7 +23,8 @@ import { action } from '@storybook/addon-actions';
 /**
  * Internal dependencies
  */
-import { Button, Text, Headline, BUTTON_TYPES } from '../../';
+import { Button, BUTTON_TYPES } from '../../button';
+import { Text, Headline } from '../../typography';
 import { Modal } from '..';
 
 export default {
@@ -35,7 +36,7 @@ export const _default = () => {
   const [toggleModal, setToggleModal] = useState(false);
   return (
     <>
-      <Headline>{'Lorem ipsum dolor'}</Headline>
+      <Headline as="h1">{'Lorem ipsum dolor'}</Headline>
       <Text>
         {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
@@ -79,7 +80,7 @@ export const OverriddenStyles = () => {
 
   return (
     <>
-      <Headline>{'Lorem ipsum dolor'}</Headline>
+      <Headline as="h1">{'Lorem ipsum dolor'}</Headline>
       <Text>
         {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '

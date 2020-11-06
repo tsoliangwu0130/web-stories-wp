@@ -82,9 +82,11 @@ TabGroup.propTypes = {
   getTabId: PropTypes.func,
   getAriaControlsId: PropTypes.func,
   handleTabClicked: PropTypes.func,
-  tabs: PropTypes.arrayOf({
-    title: PropTypes.string,
-    id: PropTypes.string.isRequired,
-  }),
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      id: PropTypes.string.isRequired,
+    })
+  ),
   label: PropTypes.string,
 };
