@@ -84,6 +84,7 @@ export const dark = {
     panel: '#282A2A',
     divider: standard.white,
     overlay: '#1E1F1F',
+    storyPreview: '#202125',
   },
 };
 
@@ -106,5 +107,6 @@ export const light = {
     panel: '#F7F8F7',
     divider: '#1B1D1C',
     overlay: '#1E1F1F',
+    storyPreview: '#202125',
   },
 };
