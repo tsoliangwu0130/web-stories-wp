@@ -36,6 +36,8 @@ import { Row, DropDown } from '../../form';
 import { SimplePanel } from '../panel';
 import { Note } from '../shared';
 import EffectPanel from './effectPanel';
+import EffectChooserDropdown from './effectChooserDropdown';
+import EffectChooser from './effectChooser';
 
 const ANIMATION_OPTIONS = [
   { value: '', name: __('Add Effect', 'web-stories') },
@@ -64,18 +66,20 @@ function AnimationPanel({
   );
 
   const handleAddEffect = useCallback(
-    (type) => {
-      if (!type) {
+    ({ animation, ...options }) => {
+      if (!animation) {
         return;
       }
 
-      const defaults = getAnimationEffectDefaults(type);
+      const defaults = getAnimationEffectDefaults(animation);
+      console.log(defaults);
       pushUpdateForObject(
         ANIMATION_PROPERTY,
         {
           id: uuidv4(),
-          type,
+          type: animation,
           ...defaults,
+          ...options,
         },
         null,
         true
@@ -106,11 +110,14 @@ function AnimationPanel({
   ) : (
     <>
       <SimplePanel name="animation" title={__('Animation', 'web-stories')}>
-        <DropDown
-          value={ANIMATION_OPTIONS[0].value}
-          onChange={handleAddEffect}
-          options={ANIMATION_OPTIONS}
-        />
+        <EffectChooserDropdown value={ANIMATION_OPTIONS[0].value}>
+          <EffectChooser onAnimationSelected={handleAddEffect} />
+        </EffectChooserDropdown>
+        {/*<DropDown*/}
+        {/*  value={ANIMATION_OPTIONS[0].value}*/}
+        {/*  onChange={handleAddEffect}*/}
+        {/*  options={ANIMATION_OPTIONS}*/}
+        {/*/>*/}
       </SimplePanel>
       {updatedAnimations.map((animation) => (
         <EffectPanel
